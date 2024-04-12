@@ -26,6 +26,11 @@ public class UserSpiImpl implements UserSpiPort {
     }
 
     @Override
+    public Mono<UserOutput> getUserByName(String name) {
+        return repository.findByName(name).map(user -> UserOutput.from(user.id(), user.name()));
+    }
+
+    @Override
     public Mono<UserOutput> create(UserInput input) {
         return repository.save(User.from(input.name())).map(user -> UserOutput.from(user.id(), user.name()));
     }
