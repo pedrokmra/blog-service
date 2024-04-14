@@ -1,5 +1,7 @@
 package com.pedrok.blogservice.contract.post;
 
+import com.pedrok.blogservice.domain.comment.model.Comment;
+import com.pedrok.blogservice.domain.comment.model.CommentInput;
 import com.pedrok.blogservice.domain.post.model.PostInput;
 import com.pedrok.blogservice.domain.post.model.PostOutput;
 import com.pedrok.blogservice.domain.post.model.PostUpdateInput;
@@ -28,5 +30,10 @@ public class PostController {
     @PatchMapping
     public Mono<PostOutput> update(@RequestBody PostUpdateInput input) {
         return postApiPort.update(input);
+    }
+
+    @PostMapping("comments")
+    public Mono<Comment> createComment(@RequestBody CommentInput input) {
+        return postApiPort.createComment(input);
     }
 }

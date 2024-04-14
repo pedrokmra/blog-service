@@ -25,7 +25,8 @@ public class PostSpiImpl implements PostSpiPort {
                 post.content(),
                 post.publishedAt(),
                 post.updatedAt(),
-                post.userId()
+                post.userId(),
+                post.comments()
         ));
     }
 
@@ -37,7 +38,8 @@ public class PostSpiImpl implements PostSpiPort {
                 post.content(),
                 post.publishedAt(),
                 post.updatedAt(),
-                post.userId()
+                post.userId(),
+                post.comments()
         ));
     }
 
@@ -63,7 +65,8 @@ public class PostSpiImpl implements PostSpiPort {
                         post.content(),
                         post.publishedAt(),
                         post.updatedAt(),
-                        post.userId()
+                        post.userId(),
+                        post.comments()
                 ));
     }
 }
