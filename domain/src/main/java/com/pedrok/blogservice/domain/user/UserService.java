@@ -1,5 +1,6 @@
 package com.pedrok.blogservice.domain.user;
 
+import com.pedrok.blogservice.domain.exception.BadRequestException;
 import com.pedrok.blogservice.domain.user.model.UserInput;
 import com.pedrok.blogservice.domain.user.model.UserOutput;
 import com.pedrok.blogservice.domain.user.port.UserApiPort;
@@ -22,8 +23,7 @@ public class UserService implements UserApiPort {
     @Override
     public Mono<UserOutput> create(UserInput input) {
         return userSpiPort.getUserByName(input.name())
-                .flatMap(user -> Mono.error(new RuntimeException("name already registered")))
-                .switchIfEmpty(userSpiPort.create(input)).cast(UserOutput.class)
-                .onErrorResume(RuntimeException.class, e -> Mono.error(new RuntimeException("user already exists")));
+                .flatMap(user -> Mono.error(new BadRequestException("name already registered")))
+                .switchIfEmpty(userSpiPort.create(input)).cast(UserOutput.class);
     }
 }

@@ -1,6 +1,7 @@
 package com.pedrok.blogservice.exception;
 
 import com.pedrok.blogservice.domain.exception.ApiException;
+import com.pedrok.blogservice.domain.exception.BadRequestException;
 import com.pedrok.blogservice.domain.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,20 @@ public class ApiExceptionHandler {
         return new ResponseEntity<>(
                 apiException,
                 HttpStatus.NOT_FOUND
+        );
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<Object> handleBadRequestException(BadRequestException exception) {
+        ApiException apiException = new ApiException(
+                exception.getMessage(),
+                HttpStatus.BAD_REQUEST,
+                ZonedDateTime.now()
+        );
+
+        return new ResponseEntity<>(
+                apiException,
+                HttpStatus.BAD_REQUEST
         );
     }
 }
