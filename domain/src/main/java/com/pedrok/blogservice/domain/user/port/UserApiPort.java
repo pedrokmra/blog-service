@@ -5,9 +5,7 @@ import com.pedrok.blogservice.domain.user.model.UserOutput;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface UserSpiPort {
+public interface UserApiPort {
     Flux<UserOutput> getUsers();
-    Mono<UserOutput> getUserById(String id);
-    Mono<UserOutput> getUserByName(String name);
     Mono<UserOutput> create(UserInput input);
 }

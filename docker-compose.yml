@@ -1,4 +1,13 @@
 services:
+  blog-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: blog-service
+    ports:
+      - 9000:9000
+    depends_on:
+      - mongodb
   mongodb:
     image: mongo
     container_name: mongodb
@@ -6,8 +15,5 @@ services:
       - 27017:27017
     volumes:
       - mongo:/data
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
 volumes:
   mongo: {}
