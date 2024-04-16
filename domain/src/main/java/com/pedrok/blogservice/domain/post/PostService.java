@@ -35,7 +35,7 @@ public class PostService implements PostApiPort {
     public Mono<PostOutput> create(PostInput input) {
         return userSpiPort.getUserById(input.userId())
                 .switchIfEmpty(Mono.error(new NotFoundException("userId " + input.userId() + " not found")))
-                .then(postSpiPort.create(input));
+                .flatMap(user -> postSpiPort.create(input));
     }
 
     @Override
@@ -59,7 +59,7 @@ public class PostService implements PostApiPort {
     public Mono<Comment> createComment(CommentInput commentInput) {
         return userSpiPort.getUserById(commentInput.userId())
                 .switchIfEmpty(Mono.error(new NotFoundException("userId " + commentInput.userId() + " not found")))
-                .then(
+                .flatMap(userOutput ->
                         postSpiPort.getPostById(commentInput.postId())
                                 .switchIfEmpty(Mono.error(new NotFoundException("postId " + commentInput.postId() + " not found")))
                                 .flatMap(post -> {
