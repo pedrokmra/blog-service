@@ -6,6 +6,9 @@ import com.pedrok.blogservice.domain.post.model.PostInput;
 import com.pedrok.blogservice.domain.post.model.PostOutput;
 import com.pedrok.blogservice.domain.post.model.PostUpdateInput;
 import com.pedrok.blogservice.domain.post.port.PostApiPort;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -18,6 +21,10 @@ public class PostController {
     private final PostApiPort postApiPort;
 
     @GetMapping("{userId}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "404", description = "NOT FOUND", content = @Content()),
+    })
     public Flux<PostOutput> get(@PathVariable("userId") String userId) {
         return postApiPort.getPostsByUserId(userId);
     }
