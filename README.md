@@ -14,11 +14,11 @@ This project implements backend blog, where its possible to make posts and comme
 git clone https://github.com/pedrokmra/blog-service.git
 ```
 
-2.**Run:**
+2. **Run:**
 ```bash
 docker-compose up
 ```
 
-3.**Access Documentation:**
+3. **Access Documentation:**
 
 http://localhost:9000/blog-service/swagger-ui.html
